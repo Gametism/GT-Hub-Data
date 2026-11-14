@@ -23,3 +23,27 @@ nvidia | 621.12 | - | - | https://nvidia.custhelp.com/app/answers/detail/a_id/59
 ;   what it does: a few words, Title Case, 80 characters at most.
 ; GameFocus has these built in already: -nostartupmovies and -nosplash (ue3), -nosplash (ue4),
 ; -popupwindow and -screen-fullscreen 0 (unity), -novid and -console (source).
+
+[affinity]
+; Games that fail on a processor with many cores and run when they get fewer
+; (GameFocus 0.10.22 and newer: More > CPU Cores).
+; One line per game:
+;   which game | cores | why | fixed by | only beside
+;   which game: steam:<its Steam number> or exe:<its exe file name>
+;   cores: how many it gets, 1 to 64 (logical processors, each on a core of its own where there are that many)
+;   why: a few words - what happens with all cores. Plain letters, 120 characters at most.
+;   fixed by (may be left out, or "-"): what repairs it already, so that GameFocus stands back.
+;       steam = its Steam release needs nothing;  file names next to the exe, * allowed, with commas
+;       (a mod's settings file: AVATAR-AdvancedConfigurator.*   a GOG release: goggame-*.info)
+;   only beside (may be left out): the line counts only for the game with this file next to its exe -
+;       for an exe name that other games have too.
+; A line here comes before what GameFocus has built in for the same game.
+; Built in already: Dead Space 2 (8), Prototype and Prototype 2 (8), Far Cry 2 (16), Avatar: The Game (8),
+; Syndicate of 2012 (8), Red Faction: Armageddon (16).
+; A settings file next to the exe that limits the cores (ProcessorLimit=8, CpuAffinity=4 ...) is found
+; without a line here.
+;
+; Not confirmed - take the ; away once one of them was tried:
+; exe:moha.exe | 16 | Medal of Honor: Airborne does not start with 32 logical processors
+; steam:3020 | 8 | Call of Juarez does not start on a processor with many threads
+; steam:238010 | 4 | Deus Ex: Human Revolution - Director's Cut fails on some processors with many cores

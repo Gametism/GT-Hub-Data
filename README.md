@@ -33,6 +33,22 @@ engine:ue3 | -nostartupmovies | Skip The Intro Movies
 - the arguments as they stand behind the exe; several that belong together go in one line
 - `what it does`: a few words
 
+**`[affinity]`** Older games that fail on a processor with many cores and run when they get fewer. GameFocus gives a game on this list its cores by itself (a game's More menu > CPU Cores shows it).
+
+```
+which game | cores | why | fixed by | only beside
+steam:10150 | 8 | Prototype crashes with more than 8 logical processors
+exe:avatar.exe | 8 | Crashes at its start with many threads | AVATAR-AdvancedConfigurator.* | Dunia.dll
+```
+
+- `which game`: `steam:` and the game's Steam number, or `exe:` and its exe's file name
+- `cores`: how many the game gets, 1 to 64
+- `why`: what happens with all cores, in a few words
+- `fixed by` (may be left out): what repairs the game already, so that GameFocus stands back. `steam` for a Steam release that needs nothing, or file names next to the exe (`*` allowed, several with commas), such as a mod's settings file
+- `only beside` (may be left out): the line counts only for the game that has this file next to its exe, for an exe name other games have too
+
+Only games where fewer cores are known to help belong here. A game that is repaired by a changed exe does not.
+
 More sections come with the GameFocus features that use them. A GameFocus that does not know a section passes it over.
 
 ## What GameFocus does with it
@@ -41,4 +57,4 @@ It reads the file and keeps a copy. Nothing in the file is run. A page it names 
 
 ## Suggestions
 
-Open an issue. GameFocus does that for launch arguments: "Suggest For Everyone" in the Launch Arguments window opens one that is already filled in.
+Open an issue. GameFocus does that for launch arguments and CPU cores: "Suggest For Everyone" in the Launch Arguments window and in More > CPU Cores opens one that is already filled in.
