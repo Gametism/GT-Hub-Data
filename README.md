@@ -20,6 +20,19 @@ nvidia | 621.31 | 621.24 | 2026-11-20 | https://nvidia.custhelp.com/app/answers/
 
 A hotfix driver is named only while it is newer than the installed driver and newer than the newest regular driver. Old lines do no harm.
 
+**`[arguments]`** Launch arguments that were tried and work, for a game or for an engine. GameFocus offers them in a game's More menu > Launch Arguments.
+
+```
+which game | the argument(s) | what it does
+steam:49520 | -NoLauncher | Skip The Launcher
+exe:twfc.exe | -nosplash | No Splash Picture At The Start
+engine:ue3 | -nostartupmovies | Skip The Intro Movies
+```
+
+- `which game`: `steam:` and the game's Steam number, `exe:` and its exe's file name, or `engine:` with `ue3`, `ue4`, `unity` or `source`
+- the arguments as they stand behind the exe; several that belong together go in one line
+- `what it does`: a few words
+
 More sections come with the GameFocus features that use them. A GameFocus that does not know a section passes it over.
 
 ## What GameFocus does with it
@@ -28,4 +41,4 @@ It reads the file and keeps a copy. Nothing in the file is run. A page it names 
 
 ## Suggestions
 
-Open an issue.
+Open an issue. GameFocus does that for launch arguments: "Suggest For Everyone" in the Launch Arguments window opens one that is already filled in.
