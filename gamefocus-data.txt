@@ -1,0 +1,15 @@
+; GameFocus - shared list
+; Read by GameFocus (0.10.20 and newer) once a day at most. Lines that start with ; are comments.
+; A section a GameFocus version does not know is passed over.
+
+[hotfix]
+; Hotfix drivers that the makers do not list where programs can read them (NVIDIA).
+; One line per hotfix driver:
+;   maker | version | based on | date | page at the maker | what it fixes
+;   maker: nvidia, amd or intel.  based on / date: "-" when not known.  date: YYYY-MM-DD.
+;   The page has to be at the maker (nvidia.custhelp.com, www.nvidia.com, www.amd.com, www.intel.com).
+;   "what it fixes" may be left out. No < or > in it, 200 characters at most.
+; GameFocus names a hotfix driver only while it is newer than the installed driver and newer than
+; the newest regular driver, so old lines do no harm and can stay.
+
+nvidia | 621.12 | - | - | https://nvidia.custhelp.com/app/answers/detail/a_id/5938
