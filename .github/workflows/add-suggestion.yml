@@ -6,6 +6,7 @@
 #   - when someone who may label issues gives it the label "approved" (anybody can open an issue; only the
 #     owner and collaborators can label one, so nothing gets into the list that nobody looked at).
 # Editing the issue takes the edited line over (a line for the same game and arguments is replaced).
+# Where the line still says "(what it does)", what was written under "What they do" takes its place.
 # The line is checked by the rules GameFocus reads the list with (.github/scripts/add_suggestion.py); one
 # that breaks a rule gets a comment that says which, and the issue stays open to be edited.
 # Every GameFocus reads the list once a day at most, so a line taken over is offered a day later at most.

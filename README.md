@@ -64,4 +64,4 @@ A suggestion is taken into `gamefocus-data.txt` by itself (`.github/workflows/ad
 - at once when the repository's owner opened it,
 - otherwise once it has the label `approved` (only the owner and collaborators can label an issue, so nothing gets into everybody's GameFocus that nobody looked at).
 
-The line under "Line for the list:" is checked by the same rules GameFocus reads the list with. A line that breaks one gets a comment that says which, and the issue stays open: edit the line and it is taken over. A line that is taken over gets a comment, the issue is closed, and every GameFocus offers it within a day.
+The line under "Line for the list:" is checked by the same rules GameFocus reads the list with (where it still says "(what it does)", what was written under "What they do" takes its place). A line that breaks one gets a comment that says which, and the issue stays open: edit the line and it is taken over. A line that is taken over gets a comment, the issue is closed, and every GameFocus offers it within a day.
