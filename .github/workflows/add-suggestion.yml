@@ -1,15 +1,15 @@
-# Takes a Sidewarden suggestion into sidewarden-data.txt.
+# Takes a GT-Hub suggestion into sidewarden-data.txt.
 #
-# A suggestion is an issue that Sidewarden' "Suggest For Everyone" opened ("Launch arguments for ..." or
+# A suggestion is an issue that GT-Hub's "Suggest For Everyone" opened ("Launch arguments for ..." or
 # "CPU cores for ..."), with its line under "Line for the list:". It is taken over
 #   - at once, when the repository's owner opened it, and
 #   - when someone who may label issues gives it the label "approved" (anybody can open an issue; only the
 #     owner and collaborators can label one, so nothing gets into the list that nobody looked at).
 # Editing the issue takes the edited line over (a line for the same game and arguments is replaced).
 # Where the line still says "(what it does)", what was written under "What they do" takes its place.
-# The line is checked by the rules Sidewarden reads the list with (.github/scripts/add_suggestion.py); one
+# The line is checked by the rules GT-Hub reads the list with (.github/scripts/add_suggestion.py); one
 # that breaks a rule gets a comment that says which, and the issue stays open to be edited.
-# Every Sidewarden reads the list once a day at most, so a line taken over is offered a day later at most.
+# GT-Hub reads the list once a day at most, so a line taken over is offered a day later at most.
 name: Take a suggestion into the list
 
 on:
@@ -21,7 +21,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: sidewarden-data
+  group: gt-hub-data
   cancel-in-progress: false
 
 jobs:
@@ -62,7 +62,7 @@ jobs:
         run: |
           case "$RESULT" in
             added|updated|already)
-              printf 'In the list now:\n\n```\n%s\n```\n\nEvery Sidewarden offers it within a day.\n' "$LINE" > comment.md
+              printf 'In the list now:\n\n```\n%s\n```\n\nGT-Hub offers it to everyone within a day.\n' "$LINE" > comment.md
               gh issue comment "$NUMBER" --repo "$GITHUB_REPOSITORY" --body-file comment.md
               gh issue close "$NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed ;;
             invalid)
