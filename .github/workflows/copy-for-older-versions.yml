@@ -1,0 +1,36 @@
+# Keeps sidewarden-data.txt a copy of gt-hub-data.txt, for the versions that read the list under its old
+# name (Sidewarden 0.11.0 to 0.11.22, GT-Hub 0.11.23). Runs when gt-hub-data.txt is changed on main - by hand
+# or in a pull request. (A suggestion taken over by add-suggestion.yml writes the copy itself: a push made by
+# a workflow starts no other workflow.)
+name: Copy the list for older versions
+
+on:
+  push:
+    branches: [main]
+    paths: [gt-hub-data.txt]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gt-hub-data
+  cancel-in-progress: false
+
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write the copy
+        run: bash .github/scripts/copy_for_older_versions.sh
+
+      - name: Keep it
+        run: |
+          if git diff --quiet -- sidewarden-data.txt; then echo "The copy is up to date."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sidewarden-data.txt
+          git commit -m "Copy gt-hub-data.txt for older versions"
+          git push

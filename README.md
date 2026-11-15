@@ -1,8 +1,8 @@
 # GT-Hub-Data
 
-The shared list for [GT-Hub](https://github.com/Gametism) (called Sidewarden up to version 0.11.22, and GameFocus up to 0.10.35). GT-Hub reads `sidewarden-data.txt` from this repository once a day at most, together with its graphics driver check.
+The shared list for [GT-Hub](https://github.com/Gametism) (called Sidewarden up to version 0.11.22, and GameFocus up to 0.10.35). GT-Hub reads `gt-hub-data.txt` from this repository once a day at most, together with its graphics driver check.
 
-The file keeps its name from the Sidewarden time, so that every version that is out there goes on reading it. Links to `Gametism/Sidewarden-Data` lead here too: GitHub forwards them since the repository was renamed.
+`sidewarden-data.txt` is a copy of it, for the versions that read the list under its old name (Sidewarden 0.11.0 to 0.11.22, GT-Hub 0.11.23). It is made by itself whenever `gt-hub-data.txt` changes (`.github/workflows/copy-for-older-versions.yml`), so only `gt-hub-data.txt` is edited. Links to `Gametism/Sidewarden-Data` lead here too: GitHub forwards them since the repository was renamed.
 
 It holds what GT-Hub cannot find out by itself and what is the same for everybody.
 
@@ -61,7 +61,7 @@ It reads the file and keeps a copy. Nothing in the file is run. A page it names 
 
 Open an issue. GT-Hub does that for launch arguments and CPU cores: "Suggest For Everyone" in the Launch Arguments window and in More > CPU Cores opens one that is already filled in.
 
-A suggestion is taken into `sidewarden-data.txt` by itself (`.github/workflows/add-suggestion.yml`):
+A suggestion is taken into `gt-hub-data.txt` (and its copy) by itself (`.github/workflows/add-suggestion.yml`):
 
 - at once when the repository's owner opened it,
 - otherwise once it has the label `approved` (only the owner and collaborators can label an issue, so nothing gets into everybody's GT-Hub that nobody looked at).

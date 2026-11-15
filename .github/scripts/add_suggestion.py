@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Takes the line from a GT-Hub suggestion (an issue that "Suggest For Everyone" opened) into
-sidewarden-data.txt - checked by the same rules GT-Hub reads the list with, so that a line that gets in
+gt-hub-data.txt - checked by the same rules GT-Hub reads the list with, so that a line that gets in
 is one every GT-Hub takes.
 
-Reads the issue from the environment (ISSUE_TITLE, ISSUE_BODY), changes sidewarden-data.txt where the line
+Reads the issue from the environment (ISSUE_TITLE, ISSUE_BODY), changes gt-hub-data.txt where the line
 belongs, and writes what happened to GITHUB_OUTPUT:
     result=added     the line is in the list now
     result=updated   the game had that argument already; its words are the issue's now
@@ -15,7 +15,7 @@ import os
 import re
 import sys
 
-LIST = "sidewarden-data.txt"
+LIST = "gt-hub-data.txt"
 
 
 def plain(text, most):
