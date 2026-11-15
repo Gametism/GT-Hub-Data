@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Takes the line from a Sidewarden suggestion (an issue that "Suggest For Everyone" opened) into
-sidewarden-data.txt - checked by the same rules Sidewarden reads the list with, so that a line that gets in
-is one every Sidewarden takes.
+"""Takes the line from a GT-Hub suggestion (an issue that "Suggest For Everyone" opened) into
+sidewarden-data.txt - checked by the same rules GT-Hub reads the list with, so that a line that gets in
+is one every GT-Hub takes.
 
 Reads the issue from the environment (ISSUE_TITLE, ISSUE_BODY), changes sidewarden-data.txt where the line
 belongs, and writes what happened to GITHUB_OUTPUT:

@@ -1,6 +1,6 @@
-; Sidewarden - shared list
-; Read by Sidewarden (0.11.0 and newer) once a day at most. Lines that start with ; are comments.
-; A section a Sidewarden version does not know is passed over.
+; GT-Hub - shared list
+; Read by GT-Hub (and by Sidewarden 0.11.0 to 0.11.22) once a day at most. Lines that start with ; are comments.
+; A section a version does not know is passed over.
 
 [hotfix]
 ; Hotfix drivers that the makers do not list where programs can read them (NVIDIA).
@@ -9,7 +9,7 @@
 ;   maker: nvidia, amd or intel.  based on / date: "-" when not known.  date: YYYY-MM-DD.
 ;   The page has to be at the maker (nvidia.custhelp.com, www.nvidia.com, www.amd.com, www.intel.com).
 ;   "what it fixes" may be left out. No < or > in it, 200 characters at most.
-; Sidewarden names a hotfix driver only while it is newer than the installed driver and newer than
+; GT-Hub names a hotfix driver only while it is newer than the installed driver and newer than
 ; the newest regular driver, so old lines do no harm and can stay.
 
 nvidia | 621.12 | - | - | https://nvidia.custhelp.com/app/answers/detail/a_id/5938
@@ -21,7 +21,7 @@ nvidia | 621.12 | - | - | https://nvidia.custhelp.com/app/answers/detail/a_id/59
 ;   which game: steam:<its Steam number>, exe:<its exe file name>, or engine:<ue3, ue4, unity, source>
 ;   the argument(s): plain characters, as they stand behind the exe. Several that belong together in one line.
 ;   what it does: a few words, Title Case, 80 characters at most.
-; Sidewarden has these built in already: -nostartupmovies and -nosplash (ue3), -nosplash (ue4),
+; GT-Hub has these built in already: -nostartupmovies and -nosplash (ue3), -nosplash (ue4),
 ; -popupwindow and -screen-fullscreen 0 (unity), -novid and -console (source).
 ; New lines come from suggestions (issues) by themselves: see .github/workflows/add-suggestion.yml.
 exe:twfc.exe | -nosplash | No Splash Picture At The Start
@@ -35,12 +35,12 @@ exe:twfc.exe | -nohomedir | Saves In The Game Folder (Fixes Corrupted Saves)
 ;   which game: steam:<its Steam number> or exe:<its exe file name>
 ;   cores: how many it gets, 1 to 64 (logical processors, each on a core of its own where there are that many)
 ;   why: a few words - what happens with all cores. Plain letters, 120 characters at most.
-;   fixed by (may be left out, or "-"): what repairs it already, so that Sidewarden stands back.
+;   fixed by (may be left out, or "-"): what repairs it already, so that GT-Hub stands back.
 ;       steam = its Steam release needs nothing;  file names next to the exe, * allowed, with commas
 ;       (a mod's settings file: AVATAR-AdvancedConfigurator.*   a GOG release: goggame-*.info)
 ;   only beside (may be left out): the line counts only for the game with this file next to its exe -
 ;       for an exe name that other games have too.
-; A line here comes before what Sidewarden has built in for the same game.
+; A line here comes before what GT-Hub has built in for the same game.
 ; Built in already: Dead Space 2 (8), Prototype and Prototype 2 (8), Far Cry 2 (16), Avatar: The Game (8),
 ; Syndicate of 2012 (8), Red Faction: Armageddon (16).
 ; A settings file next to the exe that limits the cores (ProcessorLimit=8, CpuAffinity=4 ...) is found
