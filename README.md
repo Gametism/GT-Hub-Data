@@ -58,3 +58,10 @@ It reads the file and keeps a copy. Nothing in the file is run. A page it names 
 ## Suggestions
 
 Open an issue. GameFocus does that for launch arguments and CPU cores: "Suggest For Everyone" in the Launch Arguments window and in More > CPU Cores opens one that is already filled in.
+
+A suggestion is taken into `gamefocus-data.txt` by itself (`.github/workflows/add-suggestion.yml`):
+
+- at once when the repository's owner opened it,
+- otherwise once it has the label `approved` (only the owner and collaborators can label an issue, so nothing gets into everybody's GameFocus that nobody looked at).
+
+The line under "Line for the list:" is checked by the same rules GameFocus reads the list with. A line that breaks one gets a comment that says which, and the issue stays open: edit the line and it is taken over. A line that is taken over gets a comment, the issue is closed, and every GameFocus offers it within a day.
