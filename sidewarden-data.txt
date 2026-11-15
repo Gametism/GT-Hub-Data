@@ -1,5 +1,9 @@
+; A copy of gt-hub-data.txt, made by itself whenever that file changes - edit gt-hub-data.txt, not this one.
+; It is here for the versions that read the list under its old name: Sidewarden 0.11.0 to 0.11.22, GT-Hub 0.11.23.
 ; GT-Hub - shared list
-; Read by GT-Hub (and by Sidewarden 0.11.0 to 0.11.22) once a day at most. Lines that start with ; are comments.
+; Read by GT-Hub once a day at most. Lines that start with ; are comments.
+; Sidewarden 0.11.0 to 0.11.22 and GT-Hub 0.11.23 read sidewarden-data.txt: a copy of this file that is made
+; by itself whenever this one changes (.github/workflows/copy-for-older-versions.yml). Edit this one.
 ; A section a version does not know is passed over.
 
 [hotfix]

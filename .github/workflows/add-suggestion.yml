@@ -1,4 +1,4 @@
-# Takes a GT-Hub suggestion into sidewarden-data.txt.
+# Takes a GT-Hub suggestion into gt-hub-data.txt (and its copy for older versions, sidewarden-data.txt).
 #
 # A suggestion is an issue that GT-Hub's "Suggest For Everyone" opened ("Launch arguments for ..." or
 # "CPU cores for ..."), with its line under "Line for the list:". It is taken over
@@ -47,7 +47,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sidewarden-data.txt
+          bash .github/scripts/copy_for_older_versions.sh
+          git add gt-hub-data.txt sidewarden-data.txt
           git commit -m "Take over #$NUMBER"
           git push
 
