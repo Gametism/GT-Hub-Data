@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Takes the line from a GameFocus suggestion (an issue that "Suggest For Everyone" opened) into
-gamefocus-data.txt - checked by the same rules GameFocus reads the list with, so that a line that gets in
-is one every GameFocus takes.
+"""Takes the line from a Sidewarden suggestion (an issue that "Suggest For Everyone" opened) into
+sidewarden-data.txt - checked by the same rules Sidewarden reads the list with, so that a line that gets in
+is one every Sidewarden takes.
 
-Reads the issue from the environment (ISSUE_TITLE, ISSUE_BODY), changes gamefocus-data.txt where the line
+Reads the issue from the environment (ISSUE_TITLE, ISSUE_BODY), changes sidewarden-data.txt where the line
 belongs, and writes what happened to GITHUB_OUTPUT:
     result=added     the line is in the list now
     result=updated   the game had that argument already; its words are the issue's now
@@ -15,7 +15,7 @@ import os
 import re
 import sys
 
-LIST = "gamefocus-data.txt"
+LIST = "sidewarden-data.txt"
 
 
 def plain(text, most):
