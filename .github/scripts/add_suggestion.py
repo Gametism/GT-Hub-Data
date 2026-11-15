@@ -98,6 +98,25 @@ def fields_of(line):
     return [f.strip() for f in line.split("|")]
 
 
+def answer_to(body, question):
+    """What was written after "<question>" ("What they do (a few words, ...):") - on its line, or on the next
+    line with text before the next question. Empty: nothing."""
+    lines = body.replace("\r", "").split("\n")
+    for i, line in enumerate(lines):
+        if line.strip().lower().startswith(question.lower()):
+            rest = line.split(":", 1)[1].strip() if ":" in line else ""
+            if rest:
+                return rest
+            for after in lines[i + 1:]:
+                after = after.strip()
+                if not after:
+                    continue
+                if ":" in after and after.split(":", 1)[0].strip().lower() in ("tried and working", "tried and working with fewer", "line for the list"):
+                    return ""
+                return after
+    return ""
+
+
 def put_in(text, section, line, same):
     """`line` into `section`: in place of a line that `same` says is the same one, else at the section's end
     (before the empty lines that close it). Returns (text, what happened)."""
@@ -153,6 +172,11 @@ def main():
     if not line:
         return say(result="invalid", reason='there is no line under "Line for the list:"')
     fields = fields_of(line)
+    # (A line that still says "(what it does)": the answer written above it takes its place.)
+    if len(fields) >= 3 and fields[2].startswith("("):
+        said = answer_to(body, "What they do" if section == "arguments" else "What happens with all cores")
+        if said:
+            fields[2] = said
     reason = check(fields)
     if reason:
         return say(result="invalid", reason=reason, line=line)
