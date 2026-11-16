@@ -1,0 +1,49 @@
+# Writes RenderToggler/RenderToggler.txt whenever a RenderToggler release is published, edited or deleted - the list
+# GT-Hub (0.11.50 and newer) reads to fetch RenderToggler and to bring every game that has it to the newest build.
+#
+# A new RenderToggler: Releases > Draft a new release, a tag that starts with "RenderToggler" (RenderToggler-1.0.0-EF447),
+# the files of the build's GT-Hub folder dragged in (RenderToggler.addon64, RenderToggler.addon, the license texts,
+# RenderToggler.txt), Publish. A minute later the list names it; GT-Hub's window takes it within the hour, its tray
+# helper within three hours. Deleting the newest release takes the list back to the one before.
+# The list is worked out from the release's files (.github/scripts/rendertoggler_list.py), never written by hand.
+name: RenderToggler list
+
+on:
+  release:
+    types: [published, edited, deleted, unpublished]
+  push:
+    branches: [main]
+    paths: [.github/workflows/rendertoggler.yml, .github/scripts/rendertoggler_list.py]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gt-hub-data
+  cancel-in-progress: false
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write the list from the newest RenderToggler release
+        id: list
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/rendertoggler_list.py
+
+      - name: Keep it
+        if: steps.list.outputs.result == 'written'
+        env:
+          VERSION: ${{ steps.list.outputs.version }}
+          TAG: ${{ steps.list.outputs.tag }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add RenderToggler/RenderToggler.txt
+          git commit -m "RenderToggler $VERSION (release $TAG)"
+          git pull --rebase origin main
+          git push
