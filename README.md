@@ -1,6 +1,8 @@
 # GT-Hub-Data
 
-The shared list for [GT-Hub](https://github.com/Gametism) (called Sidewarden up to version 0.11.22, and GameFocus up to 0.10.35). GT-Hub reads `gt-hub-data.txt` from this repository once a day at most, together with its graphics driver check.
+The shared list for [GT-Hub](https://github.com/Gametism) (called Sidewarden up to version 0.11.22, and GameFocus up to 0.10.35). GT-Hub reads `gt-hub-data.txt` from this repository: from version 0.11.50 on at its start and every three hours, up to 0.11.49 once a day together with its graphics driver check (and not at all while that check was switched off).
+
+It is also where GT-Hub gets RenderToggler from (see [RenderToggler](#rendertoggler) below).
 
 `sidewarden-data.txt` is a copy of it, for the versions that read the list under its old name (Sidewarden 0.11.0 to 0.11.22, GT-Hub 0.11.23). It is made by itself whenever `gt-hub-data.txt` changes (`.github/workflows/copy-for-older-versions.yml`), so only `gt-hub-data.txt` is edited. Links to `Gametism/Sidewarden-Data` lead here too: GitHub forwards them since the repository was renamed.
 
@@ -52,6 +54,23 @@ exe:avatar.exe | 8 | Crashes at its start with many threads | AVATAR-AdvancedCon
 Only games where fewer cores are known to help belong here. A game that is repaired by a changed exe does not.
 
 More sections come with the GT-Hub features that use them. A version that does not know a section passes it over.
+
+## RenderToggler
+
+GT-Hub 0.11.50 and newer fetch RenderToggler from the releases of this repository and bring every game that has GT-Hub's RenderToggler to the newest build by themselves: the window when it looks at its lists (within the hour), the tray helper every three hours while the window stays closed. Never into a game that is running, and never over a copy someone put into a game themselves.
+
+**A new build:**
+
+1. Releases > Draft a new release.
+2. A tag that starts with `RenderToggler`, such as `RenderToggler-1.0.0-EF447` (letters, digits and `. - _ +` only).
+3. Drag in the files of the build's `GT-Hub` folder: `RenderToggler.addon64`, `RenderToggler.addon`, the license texts and `RenderToggler.txt`.
+4. Publish release.
+
+GT-Hub's `tools\publish_rendertoggler.cmd` does the same: drag the build's `GT-Hub` folder onto it. It makes the release with the GitHub CLI where that is signed in, and otherwise opens the filled-in release page and the folder.
+
+A minute after the release is published, `.github/workflows/rendertoggler.yml` writes `RenderToggler/RenderToggler.txt`: the version (from the build's `RenderToggler.txt`, otherwise the tag), the release the files are in, and every file with its SHA-256, worked out from the files themselves. GT-Hub takes only files that match it, and only from a release of this repository. Deleting the newest release takes the list back to the one before; drafts and pre-releases do not count.
+
+Nothing of RenderToggler's source is in this repository.
 
 ## What GT-Hub does with it
 
