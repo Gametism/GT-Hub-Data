@@ -52,3 +52,9 @@ exe:twfc.exe | -nohomedir | Saves In The Game Folder (Fixes Corrupted Saves)
 ; exe:moha.exe | 16 | Medal of Honor: Airborne does not start with 32 logical processors
 ; steam:3020 | 8 | Call of Juarez does not start on a processor with many threads
 ; steam:238010 | 4 | Deus Ex: Human Revolution - Director's Cut fails on some processors with many cores
+
+[patreon]
+; Patreon rewards (GT-Hub 0.11.64 and newer, src/patreon_signin.h): the address of Sign In With Patreon, and the
+; tiers' names as Patreon has them - "tier | its level in GT-Hub, 1 to 3 | its name" (without them GT-Hub says
+; Supporter, Champion, Legend). Which Patreon tier is which level is set in the service itself (TIERS).
+signin | https://gthub-patreon.gametism.workers.dev
