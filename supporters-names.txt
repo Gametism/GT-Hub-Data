@@ -1,0 +1,12 @@
+; How GT-Hub names the supporters from Patreon in About GT-Hub (.github/workflows/patreon-supporters.yml reads this).
+;
+; How a name is written when nothing else is said for it - one of:
+;   names: first-initial    Jane D.   (the first name and the first letter of the last one)
+;   names: first            Jane
+;   names: full             Jane Doe  (as Patreon has it)
+names: first-initial
+;
+; A line for one supporter: their name as Patreon has it (any letter case) = how it is shown, or - to leave them out.
+;   Jane Doe = JaneD
+;   John Smith = -
+; Up to 48 characters; | < and > are left out. The change shows with the next run (once a day, or Run workflow).
