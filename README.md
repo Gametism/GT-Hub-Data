@@ -53,6 +53,17 @@ exe:avatar.exe | 8 | Crashes at its start with many threads | AVATAR-AdvancedCon
 
 Only games where fewer cores are known to help belong here. A game that is repaired by a changed exe does not.
 
+**`[supporters]`** The supporters on Patreon, thanked by name in About GT-Hub (GT-Hub 0.11.58 and newer). It is written by itself once a day from Patreon (`.github/workflows/patreon-supporters.yml`), the highest tier first and in a tier the longest supporters first - so it is not edited here.
+
+```
+name | tier
+Jane D. | Legend
+Kai
+```
+
+- How a supporter is named, and who is left out, is set in `supporters-names.txt`: `Jane D.` (first name and initial) unless it says otherwise, `-` for someone who does not want to be named
+- Until Patreon is connected the workflow does nothing. Connecting it once: a client in Patreon's developer portal (`patreon.com/portal/registration/register-clients`, API version 2), its Client ID, Client Secret, Creator's Access Token and Creator's Refresh Token as the secrets `PATREON_CLIENT_ID`, `PATREON_CLIENT_SECRET`, `PATREON_ACCESS_TOKEN` and `PATREON_REFRESH_TOKEN`, and a fine-grained token for this repository with "Secrets: Read and write" as `SECRETS_TOKEN` - Patreon renews its tokens after some weeks, and the new ones are kept in the secrets with it. Then Actions > Patreon supporters > Run workflow.
+
 More sections come with the GT-Hub features that use them. A version that does not know a section passes it over.
 
 ## RenderToggler

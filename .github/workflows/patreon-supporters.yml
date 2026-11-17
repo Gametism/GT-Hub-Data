@@ -1,0 +1,56 @@
+# Keeps the [supporters] section of gt-hub-data.txt as Gametism's Patreon has it: once a day, and when it is run by hand
+# (Actions > Patreon supporters > Run workflow). GT-Hub 0.11.58 and newer thank the supporters by name in About GT-Hub
+# and read the list every three hours - a new supporter is there within a day.
+#
+# Until Patreon is connected (the secrets below), it does nothing. To connect it, once:
+#   1. patreon.com/portal/registration/register-clients > Create Client (API version 2). Any name and redirect URI.
+#      From the client: its Client ID, Client Secret, Creator's Access Token and Creator's Refresh Token.
+#   2. Here: Settings > Secrets and variables > Actions > New repository secret - PATREON_CLIENT_ID,
+#      PATREON_CLIENT_SECRET, PATREON_ACCESS_TOKEN, PATREON_REFRESH_TOKEN.
+#   3. A token that may write this repository's secrets, so that the Patreon tokens are kept when Patreon renews them
+#      (they run out after some weeks): GitHub > Settings > Developer settings > Fine-grained tokens > Generate -
+#      only this repository, Repository permissions > Secrets: Read and write. Into the secret SECRETS_TOKEN.
+#   4. Actions > Patreon supporters > Run workflow.
+# How a supporter is named (Jane D. by default), and who is left out: supporters-names.txt.
+name: Patreon supporters
+
+on:
+  schedule:
+    - cron: "41 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gt-hub-data
+  cancel-in-progress: false
+
+jobs:
+  supporters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Read the supporters from Patreon
+        id: read
+        env:
+          PATREON_ACCESS_TOKEN: ${{ secrets.PATREON_ACCESS_TOKEN }}
+          PATREON_REFRESH_TOKEN: ${{ secrets.PATREON_REFRESH_TOKEN }}
+          PATREON_CLIENT_ID: ${{ secrets.PATREON_CLIENT_ID }}
+          PATREON_CLIENT_SECRET: ${{ secrets.PATREON_CLIENT_SECRET }}
+          SECRETS_TOKEN: ${{ secrets.SECRETS_TOKEN }}
+        run: python3 .github/scripts/patreon_supporters.py
+
+      - name: Keep the list
+        if: steps.read.outputs.result == 'written'
+        env:
+          COUNT: ${{ steps.read.outputs.count }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gt-hub-data.txt
+          git commit -m "Supporters from Patreon ($COUNT)"
+          git push
