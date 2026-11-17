@@ -1,0 +1,8 @@
+; RenderToggler for GT-Hub (0.11.50 and newer) - written by .github/workflows/rendertoggler.yml from the
+; release RenderToggler-1.0.0-EF447-NeuralRendering. Not edited by hand: a new release writes it anew.
+Version=1.0.0-EF447-NeuralRendering
+From=https://github.com/Gametism/GT-Hub-Data/releases/download/RenderToggler-1.0.0-EF447-NeuralRendering/
+LICENSE.txt 40aacff72f7b781c00575be9f1a3b42df05cc4735459ad7f965e420f08cd8219
+PROPRIETARY_LICENSE.txt 5f3b36cf7590d31db1bc0f44eba62a4ac6f7d6a693c7b9e10e730058d368262f
+RenderToggler.addon 9b34c6877387b81d80d456d08dd0077aa5cd0d3022eb590e97725f71a691d562
+RenderToggler.addon64 365a174afb95613f1de554a604a56f6ea68db3affbd80f0a8049b88f874c9495
