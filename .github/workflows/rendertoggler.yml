@@ -29,7 +29,10 @@ jobs:
   list:
     runs-on: ubuntu-latest
     steps:
+      # A release event checks out the release's tag (no branch to push to); the list always goes onto main.
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Write the list from the newest RenderToggler release
         id: list
@@ -45,4 +48,4 @@ jobs:
           git add RenderToggler/RenderToggler.txt
           git commit -m "RenderToggler"
           git pull --rebase origin main
-          git push
+          git push origin HEAD:main
