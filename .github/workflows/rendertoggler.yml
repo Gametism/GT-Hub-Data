@@ -6,6 +6,8 @@
 # RenderToggler.txt), Publish. A minute later the list names it; GT-Hub's window takes it within the hour, its tray
 # helper within three hours. Deleting the newest release takes the list back to the one before.
 # The list is worked out from the release's files (.github/scripts/rendertoggler_list.py), never written by hand.
+# On GitHub every RenderToggler release is shown as just "RenderToggler" (the script sets the title); the version
+# stays in the tag and in the list.
 name: RenderToggler list
 
 on:
@@ -37,13 +39,10 @@ jobs:
 
       - name: Keep it
         if: steps.list.outputs.result == 'written'
-        env:
-          VERSION: ${{ steps.list.outputs.version }}
-          TAG: ${{ steps.list.outputs.tag }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add RenderToggler/RenderToggler.txt
-          git commit -m "RenderToggler $VERSION (release $TAG)"
+          git commit -m "RenderToggler"
           git pull --rebase origin main
           git push

@@ -10,6 +10,10 @@ taken; without it the version is the tag without "RenderToggler-").
 The list names the release (From=) and every file with its SHA-256, worked out here from the files themselves.
 GT-Hub takes only files that match it, and only from a release of this repository.
 
+On GitHub every RenderToggler release is shown as just "RenderToggler": its title is set to that, and an empty text
+(or the one publish_rendertoggler wrote, with the version in it) becomes a short line without a version. The version
+stays in the tag, which has to be new for every release, and in the list GT-Hub reads.
+
 Needs the GitHub CLI (gh, only its REST calls) with GH_TOKEN, and GITHUB_REPOSITORY (owner/name). Only the Python standard library.
 Writes to GITHUB_OUTPUT: result=written|same|none, version=, tag=."""
 import hashlib
@@ -26,6 +30,9 @@ REPO = os.environ.get("GITHUB_REPOSITORY", "Gametism/GT-Hub-Data")
 TAG_OK = re.compile(r"^[A-Za-z0-9._+-]{1,100}$")
 NAME_BAD = set('\\/:*?"<>|%')
 KINDS = (".addon64", ".addon32", ".addon", ".txt")
+TITLE = "RenderToggler"
+NOTE = "RenderToggler for GT-Hub. GT-Hub 0.11.50 and newer fetch it from here by themselves."
+TOOL_NOTE = re.compile(r"^RenderToggler .* for GT-Hub\. GT-Hub 0\.11\.50 and newer fetch it from here by themselves\.$")
 
 
 def say(**what):
@@ -41,13 +48,31 @@ def gh(*args, binary=False):
     return subprocess.run(["gh", *args], check=True, capture_output=True, text=not binary).stdout
 
 
-def newest():
-    """The newest published RenderToggler release (GitHub's REST answer for it), or None."""
+def published():
+    """The published RenderToggler releases (GitHub's REST answers for them), newest first."""
     rows = json.loads(gh("api", "repos/%s/releases?per_page=100" % REPO))
     rows = [r for r in rows if not r.get("draft") and not r.get("prerelease") and r.get("published_at")
             and r["tag_name"].lower().startswith("rendertoggler")]
     rows.sort(key=lambda r: r["published_at"], reverse=True)
-    return rows[0] if rows else None
+    return rows
+
+
+def plain(release):
+    """Shows the release as just "RenderToggler". A text someone wrote by hand stays as it is."""
+    body = (release.get("body") or "").strip()
+    change = []
+    if release.get("name") != TITLE:
+        change += ["-f", "name=" + TITLE]
+    if not body or TOOL_NOTE.match(body):
+        if body != NOTE:
+            change += ["-f", "body=" + NOTE]
+    if not change:
+        return
+    try:
+        gh("api", "-X", "PATCH", "repos/%s/releases/%d" % (REPO, release["id"]), *change)
+        print("Release %s is shown as %s now." % (release["tag_name"], TITLE))
+    except subprocess.CalledProcessError as e:
+        print("Release %s could not be renamed: %s" % (release["tag_name"], (e.stderr or "").strip()))
 
 
 def safe_name(n):
@@ -55,7 +80,10 @@ def safe_name(n):
 
 
 def main():
-    release = newest()
+    rows = published()
+    for row in rows:
+        plain(row)
+    release = rows[0] if rows else None
     if not release:
         print("No published RenderToggler release - the list stays as it is.")
         return say(result="none")

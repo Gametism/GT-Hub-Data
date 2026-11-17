@@ -68,6 +68,8 @@ GT-Hub 0.11.50 and newer fetch RenderToggler from the releases of this repositor
 
 GT-Hub's `tools\publish_rendertoggler.cmd` does the same: drag the build's `GT-Hub` folder onto it. It makes the release with the GitHub CLI where that is signed in, and otherwise opens the filled-in release page and the folder.
 
+On GitHub the release is shown as just "RenderToggler", whatever title it was published with: the workflow below sets the title, and an empty text becomes one short line without a version. The version stays in the tag (a new one for every release) and in the list GT-Hub reads.
+
 A minute after the release is published, `.github/workflows/rendertoggler.yml` writes `RenderToggler/RenderToggler.txt`: the version (from the build's `RenderToggler.txt`, otherwise the tag), the release the files are in, and every file with its SHA-256, worked out from the files themselves. GT-Hub takes only files that match it, and only from a release of this repository. Deleting the newest release takes the list back to the one before; drafts and pre-releases do not count.
 
 Nothing of RenderToggler's source is in this repository.
