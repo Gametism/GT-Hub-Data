@@ -1,8 +1,8 @@
 ; RenderToggler for GT-Hub (0.11.50 and newer) - written by .github/workflows/rendertoggler.yml from the
-; release RenderToggler-1.0.0-EF448-CleanPicture. Not edited by hand: a new release writes it anew.
-Version=1.0.0-EF448-CleanPicture
-From=https://github.com/Gametism/GT-Hub-Data/releases/download/RenderToggler-1.0.0-EF448-CleanPicture/
+; release RenderToggler-1.0.0-EF449-JediSurvivor. Not edited by hand: a new release writes it anew.
+Version=1.0.0-EF449-JediSurvivor
+From=https://github.com/Gametism/GT-Hub-Data/releases/download/RenderToggler-1.0.0-EF449-JediSurvivor/
 LICENSE.txt 40aacff72f7b781c00575be9f1a3b42df05cc4735459ad7f965e420f08cd8219
 PROPRIETARY_LICENSE.txt 5f3b36cf7590d31db1bc0f44eba62a4ac6f7d6a693c7b9e10e730058d368262f
-RenderToggler.addon 53ac53ccfc4ac7a803bfdfe8bbabad8bd74549000697ccc79b424f03bf2469fa
-RenderToggler.addon64 88faaee60abb95c03292e914a58bf87f085527af16c038aedef09b3621db52a4
+RenderToggler.addon b3b341a20765cc61b8b27f7f4a1c5b497a46433da760d02b24328ad029936eeb
+RenderToggler.addon64 d855a2f622bab73aac10646eeca54e49d28c176958593e5b3ee839dcc31baf70
