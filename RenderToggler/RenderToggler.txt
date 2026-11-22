@@ -1,8 +1,8 @@
 ; RenderToggler for GT-Hub (0.11.50 and newer) - written by .github/workflows/rendertoggler.yml from the
-; release RenderToggler-1.0.0-EF455. Not edited by hand: a new release writes it anew.
-Version=1.0.0-EF455
-From=https://github.com/Gametism/GT-Hub-Data/releases/download/RenderToggler-1.0.0-EF455/
+; release RenderToggler-1.0.0-EF456. Not edited by hand: a new release writes it anew.
+Version=1.0.0-EF456
+From=https://github.com/Gametism/GT-Hub-Data/releases/download/RenderToggler-1.0.0-EF456/
 LICENSE.txt 40aacff72f7b781c00575be9f1a3b42df05cc4735459ad7f965e420f08cd8219
 PROPRIETARY_LICENSE.txt 5f3b36cf7590d31db1bc0f44eba62a4ac6f7d6a693c7b9e10e730058d368262f
-RenderToggler.addon fbe69c124b8e24f751275f3dfaa94fe9b7454b6cc715f84e15b2ff5db02cdf90
-RenderToggler.addon64 f6be1c53dd3aa5aa6c4227b21b0758834c387bd4e445aadd4786d812f197c03f
+RenderToggler.addon 5e611cf04c56e11d5cad5c1c5a72a3933dff184d0161358ad7cdf1609d0f8316
+RenderToggler.addon64 32bf15ebf574c2b51f814ec4d8dd1fad0536782ea42e4012487b8074ab46e954
