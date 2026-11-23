@@ -11,7 +11,7 @@
 #      (they run out after some weeks): GitHub > Settings > Developer settings > Fine-grained tokens > Generate -
 #      only this repository, Repository permissions > Secrets: Read and write. Into the secret SECRETS_TOKEN.
 #   4. Actions > Patreon supporters > Run workflow.
-# How a supporter is named (Jane D. by default), and who is left out: supporters-names.txt.
+# How a supporter is named (nobody by default: only those who said yes), and who is left out: supporters-names.txt.
 name: Patreon supporters
 
 on:
