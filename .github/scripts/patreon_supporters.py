@@ -8,12 +8,15 @@ first. A supporter without a tier stands last, without one.
 
 How they are named: as supporters-names.txt in this repository says. Its first setting is how a name is written when
 nothing else is said for it:
-    names: first-initial      Jane D. (the first name and the first letter of the last one) - the default
+    names: none               not named at all - the default: a name is only shown where the supporter agreed to it
+    names: first-initial      Jane D. (the first name and the first letter of the last one)
     names: first              Jane
     names: full               Jane Doe (as Patreon has it)
 and a line for one supporter changes that for them alone (their name as Patreon has it, any letter case):
     Jane Doe = JaneD          shown as JaneD
     John Smith = -            not shown
+A name in About GT-Hub is public (this list is read by every GT-Hub), so it needs the supporter's yes: with "names: none"
+only the supporters with a line of their own are named.
 What GT-Hub takes: up to 48 characters, no | < > (those are left out here), a tier name up to 24.
 
 The Patreon access: a Creator's Access Token with its Refresh Token and the client's id and secret (the Patreon
@@ -39,7 +42,7 @@ NAMES = "supporters-names.txt"
 API = "https://www.patreon.com/api/oauth2/v2"
 TOKEN_URL = "https://www.patreon.com/api/oauth2/token"
 AGENT = "GT-Hub-Data supporters (+https://github.com/Gametism/GT-Hub-Data)"
-STYLES = ("first-initial", "first", "full")
+STYLES = ("none", "first-initial", "first", "full")
 HEADER = """[supporters]
 ; The supporters on Patreon, thanked by name in About GT-Hub (GT-Hub 0.11.58 and newer).
 ; Written by itself once a day from Patreon (.github/workflows/patreon-supporters.yml) - a name is changed or left
@@ -75,6 +78,8 @@ def clean(text, most):
 
 
 def shown_name(full, style):
+    if style == "none":
+        return ""
     words = clean(full, 200).split(" ")
     words = [w for w in words if w]
     if not words:
@@ -88,7 +93,7 @@ def shown_name(full, style):
 
 def read_names(text):
     """supporters-names.txt: the style, and a name for a supporter (lower-case Patreon name -> shown name, "" not shown)."""
-    style, names = "first-initial", {}
+    style, names = "none", {}
     for raw in (text or "").splitlines():
         line = raw.strip()
         if not line or line.startswith(";") or line.startswith("#"):
@@ -279,6 +284,10 @@ def test():
     assert got == [("Max M.", "Legend"), ("Zoe Q.", "Supporter"), ("JaneD", "Supporter"), ("Custom A.", "")], got
     assert supporters([p1, p2], "full")[:2] == [("Max Mustermann", "Legend"), ("Private Person", "Hero")]
     assert supporters([p1], "first") == [("Max", "Legend"), ("Jane", "Supporter")]
+    # (with "names: none" only the supporters with a line of their own are named)
+    style, names = read_names("names: none\nJane Doe = JaneD\n")
+    assert style == "none" and supporters([p1, p2], style, names) == [("JaneD", "Supporter")]
+    assert read_names("")[0] == "none" and shown_name("Max Mustermann", "none") == ""
     assert shown_name("Cher", "first-initial") == "Cher" and shown_name("  ", "full") == "" and len(clean("ä" * 40, 48).encode()) <= 48
     assert clean("A\tB|C<D>E\x01", 48) == "A BCDE"
     sec = section(got)

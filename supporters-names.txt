@@ -1,10 +1,15 @@
 ; How GT-Hub names the supporters from Patreon in About GT-Hub (.github/workflows/patreon-supporters.yml reads this).
 ;
+;
+; A name in About GT-Hub is public, so a supporter is only named after saying yes to it: with "names: none" nobody is
+; named unless they have a line of their own below (their name as Patreon has it = how they want to be shown).
+;
 ; How a name is written when nothing else is said for it - one of:
+;   names: none             not named (the default)
 ;   names: first-initial    Jane D.   (the first name and the first letter of the last one)
 ;   names: first            Jane
 ;   names: full             Jane Doe  (as Patreon has it)
-names: first-initial
+names: none
 ;
 ; A line for one supporter: their name as Patreon has it (any letter case) = how it is shown, or - to leave them out.
 ;   Jane Doe = JaneD
