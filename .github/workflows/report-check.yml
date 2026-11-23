@@ -1,0 +1,72 @@
+# Sorts problem reports: an issue that GT-Hub's "Share A Report" opened (Options > Troubleshooting) gets the
+# labels "report", its GT-Hub version and "crash" where it says so. Where the report's zip is not attached
+# yet, the issue gets "needs report file" and one comment that says where the zip is - the label goes once
+# a zip comes in a comment. Nothing else is changed: the daily look at new reports reads the zips.
+name: Sort a report
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+
+concurrency:
+  group: report-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  sort:
+    if: github.event.issue.state == 'open' && !github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read the issue's comments
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: gh api "repos/${{ github.repository }}/issues/$NUMBER/comments" --paginate --jq '.[].body' > "$RUNNER_TEMP/comments.txt"
+
+      - name: Look at it
+        id: look
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          COMMENTS: ${{ runner.temp }}/comments.txt
+        run: python3 .github/scripts/report_check.py
+
+      - name: Label it
+        if: steps.look.outputs.labels != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: ${{ steps.look.outputs.labels }}
+          UNLABEL: ${{ steps.look.outputs.unlabel }}
+        run: |
+          IFS=',' read -ra names <<< "$LABELS"
+          for name in "${names[@]}"; do
+            gh api "repos/${{ github.repository }}/labels" -f name="$name" -f color="ededed" > /dev/null 2>&1 || true
+            gh api "repos/${{ github.repository }}/issues/$NUMBER/labels" -f "labels[]=$name" > /dev/null
+          done
+          if [ -n "$UNLABEL" ]; then
+            gh api -X DELETE "repos/${{ github.repository }}/issues/$NUMBER/labels/$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))' "$UNLABEL")" > /dev/null 2>&1 || true
+          fi
+
+      - name: Ask for the zip
+        if: steps.look.outputs.ask == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh api "repos/${{ github.repository }}/issues/$NUMBER/comments" -f body="$(cat <<'TEXT'
+          <!-- report-check: zip -->
+          Thanks for the report! The zip with GT-Hub's logs is not here yet, and it is what tells what went wrong.
+
+          GT-Hub saved it when you made the report: it is in GT-Hub's logs folder, in Reports (GT-Hub showed it in Explorer). Drag it into a comment here. Your Windows user name, the PC's name, your user folder, account numbers and e-mail addresses are already taken out of it.
+
+          No zip any more? Options > Troubleshooting > Share A Report makes a new one.
+          TEXT
+          )" > /dev/null
