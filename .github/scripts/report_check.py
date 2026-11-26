@@ -38,8 +38,10 @@ def main():
     if "crash" in title.lower() or "**Crashes:**" in body:
         labels.append("crash")
 
-    # The zip: dragged into the issue or a comment (GitHub keeps it at github.com/user-attachments/files/...).
-    zipped = re.search(r"https://github\.com/(?:user-attachments/files|[^/\s]+/[^/\s]+/files)/\d+/[^\s)\]]+\.zip", everything, re.I) is not None
+    # The zip: dragged into the issue or a comment (GitHub keeps it at github.com/user-attachments/files/...), or - a
+    # report sent with one click (GT-Hub 0.13.79) - in this repository's "reports" release, put there by the report service.
+    zipped = re.search(r"https://github\.com/(?:user-attachments/files|[^/\s]+/[^/\s]+/files)/\d+/[^\s)\]]+\.zip", everything, re.I) is not None or \
+        re.search(r"https://github\.com/Gametism/GT-Hub-Data/releases/download/reports/[^\s)\]]+\.zip", everything, re.I) is not None
     unlabel = ""
     ask = "0"
     if zipped:
