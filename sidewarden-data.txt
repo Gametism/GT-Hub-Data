@@ -30,7 +30,6 @@ nvidia | 621.12 | - | - | https://nvidia.custhelp.com/app/answers/detail/a_id/59
 ; New lines come from suggestions (issues) by themselves: see .github/workflows/add-suggestion.yml.
 exe:twfc.exe | -nosplash | No Splash Picture At The Start
 exe:twfc.exe | -nohomedir | Saves In The Game Folder (Fixes Corrupted Saves)
-steam:460930 | -nointro | Skip intro videos (works only with Steam version of the game)
 
 [affinity]
 ; Games that fail on a processor with many cores and run when they get fewer
