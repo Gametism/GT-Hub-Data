@@ -59,3 +59,8 @@ steam:460930 | -nointro | Skip intro videos (works only with Steam version of th
 ; tiers' names as Patreon has them - "tier | its level in GT-Hub, 1 to 3 | its name" (without them GT-Hub says
 ; Supporter, Champion, Legend). Which Patreon tier is which level is set in the service itself (TIERS).
 signin | https://gthub-patreon.gametism.workers.dev
+
+[reports]
+; Reports sent with one click (GT-Hub 0.13.79 and newer, src/report_upload.h): the address of Gametism's report
+; service (tools/report-upload/worker.js). Without it GT-Hub opens GitHub's page and the zip is added by hand.
+upload | https://gthub-reports.gametism.workers.dev
